@@ -9,6 +9,7 @@ public class Tree {
         if (root != null) {
             // inserting a new node
             root.insert(value);
+            return;
         }
 
         // If root doesn't exist, create it

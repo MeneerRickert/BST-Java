@@ -1,5 +1,6 @@
 package com.rickert.bst.trees;
 
+import com.rickert.bst.WrongInputException;
 import com.rickert.bst.nodes.TreeNode;
 
 public abstract class Tree {
@@ -7,7 +8,7 @@ public abstract class Tree {
     protected TreeNode root;
 
     // insert node with value value
-    public boolean insert(Object value) {
+    public boolean insert(Object value) throws WrongInputException {
         if (root != null) {
             // inserting a new node
             root.insert(value);
@@ -39,7 +40,7 @@ public abstract class Tree {
     }
 
     // get TreeNode with value value
-    public TreeNode get(Object value) {
+    public TreeNode get(Object value) throws WrongInputException {
         return root.get(value);
     }
 

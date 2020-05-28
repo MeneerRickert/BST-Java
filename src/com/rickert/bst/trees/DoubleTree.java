@@ -1,17 +1,22 @@
 package com.rickert.bst.trees;
 
+import com.rickert.bst.WrongInputException;
 import com.rickert.bst.nodes.DoubleTreeNode;
 import com.rickert.bst.nodes.IntegerTreeNode;
 import com.rickert.bst.nodes.TreeNode;
 
 public class DoubleTree extends Tree {
 
-    public boolean insert(Object value) {
-        if (!super.insert(value)) {
-            // If root doesn't exist, create it
-            root = new DoubleTreeNode((double) value);
+    public boolean insert(Object value) throws WrongInputException {
+        if (value instanceof Double) {
+            if (!super.insert(value)) {
+                // If root doesn't exist, create it
+                root = new DoubleTreeNode((double) value);
+            }
+            return true;
+        } else {
+            throw new WrongInputException("Input is not a Double");
         }
-        return true;
     }
 
     // delete node with value value

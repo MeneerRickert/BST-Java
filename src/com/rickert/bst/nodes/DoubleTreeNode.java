@@ -1,5 +1,7 @@
 package com.rickert.bst.nodes;
 
+import com.rickert.bst.WrongInputException;
+
 public class DoubleTreeNode extends TreeNode {
 
     public DoubleTreeNode(double value) {
@@ -9,7 +11,7 @@ public class DoubleTreeNode extends TreeNode {
 
     // inserting new node
     @Override
-    public void insert(Object value) {
+    public void insert(Object value) throws WrongInputException {
         if (value instanceof Double) {
             // filter duplicate values
             if ((double) value == (double) this.value) {
@@ -31,12 +33,14 @@ public class DoubleTreeNode extends TreeNode {
                     this.rightChild.insert(value);
                 }
             }
+        } else {
+            throw new WrongInputException("Input is not a Double");
         }
     }
 
     // Getting node
     @Override
-    public TreeNode get(Object value) {
+    public TreeNode get(Object value) throws WrongInputException {
         if (value instanceof Double) {
             // return when value found
             if ((double) value == (double) this.value) {
@@ -53,6 +57,8 @@ public class DoubleTreeNode extends TreeNode {
                     return rightChild.get(value);
                 }
             }
+        } else {
+            throw new WrongInputException("Input is not a Double");
         }
 
         // returning null if value not found

@@ -1,16 +1,22 @@
 package com.rickert.bst.trees;
 
+import com.rickert.bst.WrongInputException;
+import com.rickert.bst.nodes.DoubleTreeNode;
 import com.rickert.bst.nodes.IntegerTreeNode;
 import com.rickert.bst.nodes.TreeNode;
 
 public class IntegerTree extends Tree {
 
-    public boolean insert(Object value) {
-        if (!super.insert(value)) {
-            // If root doesn't exist, create it
-            root = new IntegerTreeNode((int) value);
+    public boolean insert(Object value) throws WrongInputException {
+        if (value instanceof Integer) {
+            if (!super.insert(value)) {
+                // If root doesn't exist, create it
+                root = new DoubleTreeNode((double) value);
+            }
+            return true;
+        } else {
+            throw new WrongInputException("Input is not an Integer");
         }
-        return true;
     }
 
     // delete node with value value

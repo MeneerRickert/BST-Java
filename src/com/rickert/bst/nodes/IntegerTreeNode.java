@@ -1,5 +1,7 @@
 package com.rickert.bst.nodes;
 
+import com.rickert.bst.WrongInputException;
+
 public class IntegerTreeNode extends TreeNode {
 
     public IntegerTreeNode(int value) {
@@ -9,7 +11,7 @@ public class IntegerTreeNode extends TreeNode {
 
     // inserting new node
     @Override
-    public void insert(Object value) {
+    public void insert(Object value) throws WrongInputException {
         if (value instanceof Integer) {
             // filter duplicate values
             if ((int) value == (int) this.value) {
@@ -31,12 +33,14 @@ public class IntegerTreeNode extends TreeNode {
                     this.rightChild.insert(value);
                 }
             }
+        } else {
+            throw new WrongInputException("Input is not an Integer");
         }
     }
 
     // Getting node
     @Override
-    public TreeNode get(Object value) {
+    public TreeNode get(Object value) throws WrongInputException {
         if (value instanceof Integer) {
             // return when value found
             if ((int) value == (int) this.value) {
@@ -53,6 +57,8 @@ public class IntegerTreeNode extends TreeNode {
                     return rightChild.get(value);
                 }
             }
+        } else {
+            throw new WrongInputException("Input is not an Integer");
         }
 
         // returning null if value not found

@@ -1,5 +1,7 @@
 package com.rickert.bst.nodes;
 
+import com.rickert.bst.WrongInputException;
+
 public abstract class TreeNode {
 
     protected Object value;
@@ -10,9 +12,9 @@ public abstract class TreeNode {
         this.value = value;
     }
 
-    public abstract void insert(Object value);
+    public abstract void insert(Object value) throws WrongInputException;
 
-    public abstract TreeNode get(Object value);
+    public abstract TreeNode get(Object value) throws WrongInputException;
 
     public abstract Object min();
 

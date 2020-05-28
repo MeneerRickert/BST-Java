@@ -1,6 +1,5 @@
 package com.rickert.bst.tree;
 
-import com.rickert.bst.exceptions.NodeNotInTreeException;
 import com.rickert.bst.exceptions.WrongInputException;
 import com.rickert.bst.nodes.TreeNode;
 import com.rickert.bst.util.Checker;
@@ -11,17 +10,21 @@ public class Tree implements ITree {
 
     @Override
     // insert node with value value
-    public void insert(Object value) throws WrongInputException {
+    public void insert(Object value) {
         if (Checker.isConvertible(value)) {
-            if (root != null) {
-                // inserting a new node
-                root.insert(value);
-            } else {
-                // If root doesn't exist, create it
-                root = new TreeNode(null, value);
+            try {
+                if (root != null) {
+                    // inserting a new node
+                    root.insert(value);
+                } else {
+                    // If root doesn't exist, create it
+                    root = new TreeNode(null, value);
+                }
+            } catch (WrongInputException ex) {
+                System.out.println("Input is not compatible");
             }
         } else {
-            throw new WrongInputException();
+            System.out.println("Input is not compatible");
         }
     }
 
@@ -61,8 +64,13 @@ public class Tree implements ITree {
 
     @Override
     // get TreeNode with value value
-    public TreeNode get(Object value) throws WrongInputException {
-        return root.get(value);
+    public TreeNode get(Object value) {
+        try {
+            return root.get(value);
+        } catch (WrongInputException ex) {
+            System.out.println("Input is not compatible");
+            return null;
+        }
     }
 
     @Override
@@ -91,25 +99,27 @@ public class Tree implements ITree {
 
     @Override
     // get the successor of node
-    public TreeNode successor(TreeNode node) throws WrongInputException, NodeNotInTreeException {
+    public TreeNode successor(TreeNode node) {
         if (inTree(node)) {
             return node.successor();
         } else {
-            throw new NodeNotInTreeException();
+            System.out.println("The node is not within the tree");
+            return null;
         }
     }
 
     @Override
     // get the predecessor of node
-    public TreeNode predecessor(TreeNode node) throws WrongInputException, NodeNotInTreeException {
+    public TreeNode predecessor(TreeNode node)  {
         if (inTree(node)) {
             return node.predecessor();
         } else {
-            throw new NodeNotInTreeException();
+            System.out.println("The node is not within the tree");
+            return null;
         }
     }
 
-    private boolean inTree(TreeNode node) throws WrongInputException {
+    private boolean inTree(TreeNode node) {
         return (this.get(node.getValue()) != null);
     }
 

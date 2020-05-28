@@ -11,6 +11,8 @@ public interface ITreeNode {
     TreeNode minNode();
     Object maxValue();
     TreeNode maxNode();
+    TreeNode successor();
+    TreeNode predecessor();
 
     void preOrderWalk();
     void postOrderWalk();

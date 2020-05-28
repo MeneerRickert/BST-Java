@@ -1,60 +1,18 @@
 package com.rickert.bst;
 
-public class TreeNode {
+public abstract class TreeNode {
 
     private int value;
-    private TreeNode leftChild;
-    private TreeNode rightChild;
+    protected TreeNode leftChild;
+    protected TreeNode rightChild;
 
     public TreeNode(int value) {
         this.value = value;
     }
 
-    // inserting new node
-    public void insert(int value) {
-        // filter duplicate values
-        if (value == this.value) {
-            return;
-        }
+    public abstract void insert(Object value);
 
-        // checking if value must be in left or right subtree
-        // if the subtree does not exist add node, otherwise search further
-        if (value < this.value) {
-            if (this.leftChild == null) {
-                this.leftChild = new TreeNode(value);
-            } else {
-                this.leftChild.insert(value);
-            }
-        } else {
-            if (this.rightChild == null) {
-                this.rightChild = new TreeNode(value);
-            } else {
-                this.rightChild.insert(value);
-            }
-        }
-    }
-
-    // Getting node
-    public TreeNode get(int value) {
-        // return when value found
-        if (value == this.value) {
-            return this;
-        }
-
-        // check whether value is in left or right subtree en search further
-        if (value < this.value) {
-            if (leftChild != null) {
-                return leftChild.get(value);
-            }
-        } else {
-            if (rightChild != null) {
-                return rightChild.get(value);
-            }
-        }
-
-        // returning null if value not found
-        return null;
-    }
+    public abstract TreeNode get(Object value);
 
     // Getting minimum value in subtree
     public int min() {

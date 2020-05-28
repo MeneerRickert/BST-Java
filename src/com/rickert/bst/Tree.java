@@ -13,7 +13,7 @@ public class Tree {
         }
 
         // If root doesn't exist, create it
-        root = new TreeNode(value);
+        root = new IntegerTreeNode(value);
     }
 
     // delete node with value value
@@ -51,7 +51,7 @@ public class Tree {
 
     // get TreeNode with value value
     public TreeNode get(int value) {
-        return root.get(value);
+        return root.get((Object) value);
     }
 
     // get lowest value in tree

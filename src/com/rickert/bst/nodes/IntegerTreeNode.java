@@ -1,8 +1,6 @@
-package com.rickert.bst;
+package com.rickert.bst.nodes;
 
 public class IntegerTreeNode extends TreeNode {
-
-    private int value;
 
     public IntegerTreeNode(int value) {
         super(value);
@@ -14,14 +12,13 @@ public class IntegerTreeNode extends TreeNode {
     public void insert(Object value) {
         if (value instanceof Integer) {
             // filter duplicate values
-            if ((int) value == this.value) {
+            if ((int) value == (int) this.value) {
                 return;
             }
 
-
             // checking if value must be in left or right subtree
             // if the subtree does not exist add node, otherwise search further
-            if ((int) value < this.value) {
+            if ((int) value < (int) this.value) {
                 if (this.leftChild == null) {
                     this.leftChild = new IntegerTreeNode((int) value);
                 } else {
@@ -42,12 +39,12 @@ public class IntegerTreeNode extends TreeNode {
     public TreeNode get(Object value) {
         if (value instanceof Integer) {
             // return when value found
-            if ((int) value == this.value) {
+            if ((int) value == (int) this.value) {
                 return this;
             }
 
             // check whether value is in left or right subtree en search further
-            if ((int) value < this.value) {
+            if ((int) value < (int) this.value) {
                 if (leftChild != null) {
                     return leftChild.get(value);
                 }
@@ -62,11 +59,19 @@ public class IntegerTreeNode extends TreeNode {
         return null;
     }
 
-    public int getValue() {
-        return value;
+    // Getting minimum value in subtree
+    public Object min() {
+        return this.leftChild != null ? this.leftChild.min() : (int) this.value;
     }
 
-    public void setValue(int value) {
-        this.value = value;
+    // Getting maximum value in subtree
+    public Object max() {
+        return this.rightChild != null ? this.rightChild.max() : (int) this.value;
+    }
+
+    public void setValue(Object value) {
+        if (value instanceof Integer) {
+            this.value = value;
+        }
     }
 }

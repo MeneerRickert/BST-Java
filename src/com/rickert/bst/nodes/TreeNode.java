@@ -1,12 +1,12 @@
-package com.rickert.bst;
+package com.rickert.bst.nodes;
 
 public abstract class TreeNode {
 
-    private int value;
+    protected Object value;
     protected TreeNode leftChild;
     protected TreeNode rightChild;
 
-    public TreeNode(int value) {
+    public TreeNode(Object value) {
         this.value = value;
     }
 
@@ -14,15 +14,9 @@ public abstract class TreeNode {
 
     public abstract TreeNode get(Object value);
 
-    // Getting minimum value in subtree
-    public int min() {
-        return this.leftChild != null ? this.leftChild.min() : this.value;
-    }
+    public abstract Object min();
 
-    // Getting maximum value in subtree
-    public int max() {
-        return this.rightChild != null ? this.rightChild.max() : this.value;
-    }
+    public abstract Object max();
 
     // Print method for preOrderWalk
     public void preOrderWalk() {
@@ -57,13 +51,11 @@ public abstract class TreeNode {
         }
     }
 
-    public int getValue() {
+    public Object getValue() {
         return value;
     }
 
-    public void setValue(int value) {
-        this.value = value;
-    }
+    public abstract void setValue(Object value);
 
     public TreeNode getLeftChild() {
         return leftChild;

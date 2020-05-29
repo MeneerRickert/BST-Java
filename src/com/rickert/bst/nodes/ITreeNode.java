@@ -18,10 +18,12 @@ public interface ITreeNode {
     void postOrderWalk();
     void inOrderWalk();
 
+    Object getKey();
     Object getValue();
     TreeNode getParent();
     TreeNode getLeftChild();
     TreeNode getRightChild();
+    void setKey(Object key);
     void setValue(Object value);
     void setParent(TreeNode parent);
     void setLeftChild(TreeNode leftChild);

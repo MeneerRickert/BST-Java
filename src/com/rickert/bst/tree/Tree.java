@@ -9,16 +9,16 @@ public class Tree implements ITree {
     private TreeNode root;
 
     @Override
-    // insert node with value value
-    public void insert(Object value) {
-        if (Checker.isConvertible(value)) {
+    // insert node with key key
+    public void insert(Object key) {
+        if (Checker.isConvertible(key)) {
             try {
                 if (root != null) {
                     // inserting a new node
-                    root.insert(value);
+                    root.insert(key);
                 } else {
                     // If root doesn't exist, create it
-                    root = new TreeNode(null, value);
+                    root = new TreeNode(null, key);
                 }
             } catch (WrongInputException ex) {
                 System.out.println("Input is not compatible");
@@ -29,23 +29,25 @@ public class Tree implements ITree {
     }
 
     @Override
-    // delete node with value value
-    public void delete(Object value) {
-        root = delete(this.root, value);
+    // delete node with key key
+    public void delete(Object key) {
+        root = delete(this.root, key);
     }
 
-    // delete node with value value
-    private TreeNode delete(TreeNode subTreeRoot, Object value) {
+    // delete node with key key
+    private TreeNode delete(TreeNode subTreeRoot, Object key) {
         // Catching null
-        if (!Checker.isConvertible(value)) {
+        if (!Checker.isConvertible(key)) {
             return null;
         }
 
-        // searching for the value
-        if (Checker.getFloat(value) < Checker.getFloat(subTreeRoot.getValue())) {
-            subTreeRoot.setLeftChild(delete(subTreeRoot.getLeftChild(), value));
-        } else if (Checker.getFloat(value) > Checker.getFloat(subTreeRoot.getValue())) {
-            subTreeRoot.setRightChild(delete(subTreeRoot.getRightChild(), value));
+        // searching for the key
+        if (Checker.getFloat(key) < Checker.getFloat(subTreeRoot.getKey())) {
+            subTreeRoot.setLeftChild(delete(subTreeRoot.getLeftChild(), key));
+            subTreeRoot.getLeftChild().setParent(subTreeRoot);
+        } else if (Checker.getFloat(key) > Checker.getFloat(subTreeRoot.getKey())) {
+            subTreeRoot.setRightChild(delete(subTreeRoot.getRightChild(), key));
+            subTreeRoot.getRightChild().setParent(subTreeRoot);
         } else {
             // case 1 & 2: when 0 or 1 child(ren)
             if (subTreeRoot.getLeftChild() == null) {
@@ -55,18 +57,19 @@ public class Tree implements ITree {
             }
 
             // case 3: 2 children
-            subTreeRoot.setValue(subTreeRoot.getLeftChild().maxValue());
+            subTreeRoot.setKey(subTreeRoot.getLeftChild().maxValue());
             subTreeRoot.setLeftChild(delete(subTreeRoot.getLeftChild(), subTreeRoot.getLeftChild().maxValue()));
+            subTreeRoot.getLeftChild().setParent(subTreeRoot);
         }
 
         return subTreeRoot;
     }
 
     @Override
-    // get TreeNode with value value
-    public TreeNode get(Object value) {
+    // get TreeNode with key key
+    public TreeNode get(Object key) {
         try {
-            return root.get(value);
+            return root.get(key);
         } catch (WrongInputException ex) {
             System.out.println("Input is not compatible");
             return null;
@@ -120,7 +123,7 @@ public class Tree implements ITree {
     }
 
     private boolean inTree(TreeNode node) {
-        return (this.get(node.getValue()) != null);
+        return (this.get(node.getKey()) != null);
     }
 
     @Override

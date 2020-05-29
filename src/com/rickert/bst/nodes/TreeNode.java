@@ -1,20 +1,20 @@
 package com.rickert.bst.nodes;
 
 import com.rickert.bst.exceptions.WrongInputException;
-import com.rickert.bst.tree.Tree;
 import com.rickert.bst.util.Checker;
 
 public class TreeNode implements ITreeNode {
 
+    private Object key;
     private Object value;
     private TreeNode parent;
     private TreeNode leftChild;
     private TreeNode rightChild;
 
-    public TreeNode(TreeNode parent, Object value) throws WrongInputException {
-        if (Checker.isConvertible(value)) {
+    public TreeNode(TreeNode parent, Object key) throws WrongInputException {
+        if (Checker.isConvertible(key)) {
             this.parent = parent;
-            this.value = value;
+            this.key = key;
         } else {
             throw new WrongInputException();
         }
@@ -25,13 +25,13 @@ public class TreeNode implements ITreeNode {
     public void insert(Object value) throws WrongInputException {
         if (Checker.isConvertible(value)) {
             // filter duplicate values
-            if (value == this.value) {
+            if (value == this.key) {
                 return;
             }
 
             // checking if value must be in left or right subtree
             // if the subtree does not exist add node, otherwise search further
-            if (Checker.getFloat(value) < Checker.getFloat(this.value)) {
+            if (Checker.getFloat(value) < Checker.getFloat(this.key)) {
                 if (this.leftChild == null) {
                     this.leftChild = new TreeNode(this, value);
                 } else {
@@ -54,12 +54,12 @@ public class TreeNode implements ITreeNode {
     public TreeNode get(Object value) throws WrongInputException {
         if (Checker.isConvertible(value)) {
             // return when value found
-            if (value == this.value) {
+            if (value == this.key) {
                 return this;
             }
 
             // check whether value is in left or right subtree en search further
-            if (Checker.getFloat(value) < Checker.getFloat(this.value)) {
+            if (Checker.getFloat(value) < Checker.getFloat(this.key)) {
                 if (leftChild != null) {
                     return leftChild.get(value);
                 }
@@ -79,7 +79,7 @@ public class TreeNode implements ITreeNode {
     @Override
     // Getting minimum value in subtree
     public Object minValue() {
-        return this.leftChild != null ? this.leftChild.minValue() : this.value;
+        return this.leftChild != null ? this.leftChild.minValue() : this.key;
     }
 
     @Override
@@ -91,7 +91,7 @@ public class TreeNode implements ITreeNode {
     @Override
     // Getting maximum value in subtree
     public Object maxValue() {
-        return this.rightChild != null ? this.rightChild.maxValue() : this.value;
+        return this.rightChild != null ? this.rightChild.maxValue() : this.key;
     }
 
     @Override
@@ -133,7 +133,7 @@ public class TreeNode implements ITreeNode {
     @Override
     // Print method for preOrderWalk
     public void preOrderWalk() {
-        System.out.print(value + ", ");
+        System.out.print(key + ", ");
         if (this.leftChild != null) {
             this.leftChild.preOrderWalk();
         }
@@ -151,7 +151,7 @@ public class TreeNode implements ITreeNode {
         if (this.rightChild != null) {
             this.rightChild.postOrderWalk();
         }
-        System.out.print(value + ", ");
+        System.out.print(key + ", ");
     }
 
     @Override
@@ -160,9 +160,21 @@ public class TreeNode implements ITreeNode {
         if (this.leftChild != null) {
             this.leftChild.inOrderWalk();
         }
-        System.out.print(value + ", ");
+        System.out.print(key + ", ");
         if (this.rightChild != null) {
             this.rightChild.inOrderWalk();
+        }
+    }
+
+    @Override
+    public Object getKey() {
+        return key;
+    }
+
+    @Override
+    public void setKey(Object key) {
+        if (Checker.isConvertible(key)) {
+            this.key = key;
         }
     }
 
@@ -173,9 +185,7 @@ public class TreeNode implements ITreeNode {
 
     @Override
     public void setValue(Object value) {
-        if (Checker.isConvertible(value)) {
-            this.value = value;
-        }
+        this.value = value;
     }
 
     @Override

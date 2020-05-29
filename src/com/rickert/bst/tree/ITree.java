@@ -4,10 +4,10 @@ import com.rickert.bst.nodes.TreeNode;
 
 public interface ITree {
 
-    void insert(Object value);
-    void delete(Object value);
+    void insert(Object key);
+    void delete(Object key);
 
-    TreeNode get(Object value);
+    TreeNode get(Object key);
     Object minValue();
     TreeNode minNode();
     Object maxValue();
